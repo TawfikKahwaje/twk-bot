@@ -1,0 +1,21 @@
+{
+  "name": "my_bot",
+  "version": "1.0.0",
+  "description": "first bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "tawfik kahwaje",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "crypto": "0.0.3",
+    "express": "^4.15.2",
+    "memory-cache": "^0.1.6",
+    "mongoose": "^4.9.2",
+    "request": "^2.81.0",
+    "request-promise": "^4.2.0"
+  }
+}
