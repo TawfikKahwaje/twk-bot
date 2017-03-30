@@ -7,10 +7,11 @@ module.exports = {
 		Profile.findOne({first_name:body.first_name}).exec(function (err, item){
 			if(err){
 				console.log(err);
-			}else{
-
+			}
+			else{
+				console.log("item :", item)
 				if(!item) return;
-				else{
+				else {
 					// here save profile
 					var profile = new Profile(body);
 					profile.save(function(err, newProfile){

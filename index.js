@@ -29,48 +29,6 @@ var bot = new Bot({
 });
 
 
-function addToCach(text) {
-	// simple function for save last 10 resp messages
-	cache.put('mess1', cache.get('mess2'));
-	cache.put('mess2', cache.get('mess3'));
-	cache.put('mess3', cache.get('mess4'));
-	cache.put('mess4', cache.get('mess5'));
-	cache.put('mess5', cache.get('mess6'));
-	cache.put('mess6', cache.get('mess7'));
-	cache.put('mess7', cache.get('mess8'));
-	cache.put('mess8', cache.get('mess9'));
-	cache.put('mess9', cache.get('mess10'));
-	cache.put('mess10', text);
-
-}
-
-function sendMessageProcess(senderID, name, messageText) {
-	// make seen mark
-	bot.sendSenderAction(senderID, "mark_seen")
-		.then((body) =>{
-			// make typing mark on
-			return bot.sendSenderAction(senderID, "typing_on");
-		})
-		.then((body) =>{
-			// make delay 3 secound
-			setTimeout(function () {
-				// make typing mark on
-				bot.sendSenderAction(senderID, "typing_off")
-				.then((body) =>{
-					// add message to cache
-					addToCach(messageText);
-					// send message back with name
-					return bot.sendMessage(senderID, cache.get('name') + " : you wrote " + messageText)
-				})
-			}, 3000)
-
-		})
-		// one catch for all promises
-		.catch((err)=> {
-			console.log(`Error is :${err}`)
-		})
-}
-
 // Index route
 app.get('/', function (req, res) {
 	res.send('Hello world, I am a chat bot 1')
@@ -138,6 +96,48 @@ function receivedMessage(event) {
   		sendMessageProcess(senderID, cache.get('name'), messageText);
   	}
   }
+}
+
+function addToCach(text) {
+	// simple function for save last 10 resp messages
+	cache.put('mess1', cache.get('mess2'));
+	cache.put('mess2', cache.get('mess3'));
+	cache.put('mess3', cache.get('mess4'));
+	cache.put('mess4', cache.get('mess5'));
+	cache.put('mess5', cache.get('mess6'));
+	cache.put('mess6', cache.get('mess7'));
+	cache.put('mess7', cache.get('mess8'));
+	cache.put('mess8', cache.get('mess9'));
+	cache.put('mess9', cache.get('mess10'));
+	cache.put('mess10', text);
+
+}
+
+function sendMessageProcess(senderID, name, messageText) {
+	// make seen mark
+	bot.sendSenderAction(senderID, "mark_seen")
+		.then((body) =>{
+			// make typing mark on
+			return bot.sendSenderAction(senderID, "typing_on");
+		})
+		.then((body) =>{
+			// make delay 3 secound
+			setTimeout(function () {
+				// make typing mark on
+				bot.sendSenderAction(senderID, "typing_off")
+				.then((body) =>{
+					// add message to cache
+					addToCach(messageText);
+					// send message back with name
+					return bot.sendMessage(senderID, cache.get('name') + " : you wrote " + messageText)
+				})
+			}, 3000)
+
+		})
+		// one catch for all promises
+		.catch((err)=> {
+			console.log(`Error is :${err}`)
+		})
 }
 
 
